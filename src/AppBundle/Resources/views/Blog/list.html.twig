@@ -1,0 +1,24 @@
+{% extends "::blog-layout.html.twig" %}
+
+{% block title %}AppBundle:Blog:list{% endblock %}
+
+{% block body %}
+
+    {% if currentTag is defined %}
+       <h1>Liste des articles par tag : {{ currentTag }}</h1>
+    {% else %}
+        <h1>Welcome to the Blog:list page</h1>
+    {% endif %}
+
+
+    <ul>
+        {% for article in articleList %}
+            <li>
+                <a href="{{ path('blog_details', {'id': article.id}) }}">
+                    {{ article.title }} par : {{ article.authorName }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

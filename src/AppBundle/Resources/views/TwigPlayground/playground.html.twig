@@ -1,0 +1,107 @@
+{% extends "::base-layout.html.twig" %}
+
+{% block title %}AppBundle:TwigPlayground:playground{% endblock %}
+
+{% block body %}
+<h1>Welcome to the TwigPlayground:playground page</h1>
+
+    <!-- Affichage de variables scalaires -->
+    <p>Bonjour {{ nom | upper }}</p>
+    <p>Nous sommes le {{ now | date('l d M Y') }}</p>
+
+    <!-- Affichage d'un tableau associatif ou d'un objet-->
+    <p>{{ client.prenom }} {{ client.nom | upper }} vous habitez :</p>
+    <p>{{ client.adresse.voie }} {{ client.adresse.code_postal ~' '~ client.adresse.ville}}</p>
+
+    <!-- Affichage d'un tableau ordinal -->
+    <p>Le premier truc est {{ inventaire[0] }}</p>
+    <p>Le dernier truc est {{ inventaire|last }}</p>
+    <ul>
+        {% for truc in inventaire %}
+            <li>{{ truc }}</li>
+        {% endfor %}
+    </ul>
+    <ul>
+        {% for nombre in 1..10 %}
+            <li>{{ nombre }}</li>
+        {% endfor %}
+    </ul>
+    <ul>
+        {% for lettre in 'a'..'z' %}
+            <li>{{ lettre }}</li>
+        {% endfor %}
+    </ul>
+
+    <style>
+        .pair {
+            background-color: #0088CC;
+        }
+    </style>
+
+    <!-- Affichage d'une table -->
+    {% set total = 0 %}
+
+    <table>
+        {% for vin in cave %}
+            {% set total = total + vin.prix %}
+            <tr class="{% if loop.index is divisible by(2) %}pair{% endif %}">
+                <td>{{ loop.index }}</td>
+                <td>{{ vin.nom }}</td>
+                <td>{{ vin.origine }}</td>
+                <td>{{ vin.cepage }}</td>
+                <td>{{ vin.prix }}</td>
+            </tr>
+        {% else %}      <!-- S'il n'y a rien ds le tableau -->
+            <p>Aucun vin dans la cave</p>
+        {% endfor %}
+        <tr>
+            <td colspan="4">TOTAL</td>
+            <td>{{ total }}</td>
+        </tr>
+    </table>
+
+    <!-- Filtrage à l'intérieur d'une boucle -->
+    <br>
+    <table>
+        <legend>Vins de type Chardonnay</legend>
+        {% for vin in cave if vin.cepage == "Chardonnay"%}
+            <tr class="{% if loop.index is divisible by(2) %}pair{% endif %}">
+                <td>{{ loop.index }}</td>
+                <td>{{ vin.nom }}</td>
+                <td>{{ vin.origine }}</td>
+                <td>{{ vin.cepage }}</td>
+            </tr>
+        {% else %}      <!-- S'il n'y a rien ds le tableau -->
+            <p>Aucun vin dans la cave</p>
+        {% endfor %}
+    </table>
+
+    <!-- Utilisation d'une macro pour le tableau -->
+    {% macro table_row(index, nom, origine, cepage, prix) %}
+        <tr class="{% if index is divisible by(2) %}pair{% endif %}">
+            <td>{{ index }}</td>
+            <td>{{ nom }}</td>
+            <td>{{ origine }}</td>
+            <td>{{ cepage }}</td>
+            <td>{{ prix }}</td>
+        </tr>
+    {% endmacro %}
+    {% import _self as macro %}
+    {% set total = 0 %}
+    <br>
+    <table>
+        {% for vin in cave %}
+            {% set total = total + vin.prix %}
+            {{ macro.table_row(loop.index, vin.nom, vin.origine, vin.cepage, vin.prix) }}
+        {% else %}      <!-- S'il n'y a rien ds le tableau -->
+            <p>Aucun vin dans la cave</p>
+        {% endfor %}
+        <tr>
+            <td colspan="4">TOTAL</td>
+            <td>{{ total }}</td>
+        </tr>
+    </table>
+
+
+
+{% endblock %}

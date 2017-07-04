@@ -1,0 +1,25 @@
+{% extends "::blog-layout.html.twig" %}
+
+{% block title %}AppBundle:Blog:details{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Blog:details page</h1>
+
+<div class="container-fluid col-md-10" style="border: solid cyan">
+    <h2>{{ article.title }}</h2>
+    <h3>par {{ article.author.name }}</h3>
+    <br>
+    <p>{{ article.text }}</p>
+    <br>
+
+    <ul class="list-inline">
+        {% for tag in article.tags %}
+            <i class="btn btn-default">{{ tag.tagName }}</i>
+        {% endfor %}
+    </ul>
+
+    <p>Article créé le {{ article.createdAt|date('d/m/Y') }}
+        {% if article.updatedAt != null %}et modifié le {{ article.updatedAt|date('d/m/Y') }}{% endif %}
+    </p>
+</div>
+{% endblock %}

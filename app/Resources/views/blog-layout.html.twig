@@ -1,0 +1,32 @@
+{% extends 'base-layout.html.twig' %}
+
+{% block aside %}
+    <h3>Les tags</h3>
+    <ul>
+        {% for tag in tags %}
+            <li>
+                <a href="{{ path('post_by_tag', {'tag': tag.tagName}) }}">
+                    {{ tag.tagName }} ({{ tag.numberOfArticles }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <hr>
+
+    <h3>Les derniers articles</h3>
+    <ul>
+        {% for article in lastArticles %}
+            <li> {{ article.title }} le {{ article.createdAt | date('d/m/Y') }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block body %}
+    {% if app.session.flashBag.has("info") %}
+        <div class="alert alert-info">
+            {% for message in app.session.flashBag.get("info") %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:DoctrinePlayground:insertArticle{% endblock %}
+
+{% block body %}
+<h1>Welcome to the DoctrinePlayground:insertArticle page</h1>
+
+    {{ article.title }}
+
+    {{ dump(article) }}
+
+    {{ dump(allArticles) }}
+{% endblock %}
