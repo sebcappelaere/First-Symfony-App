@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Repository\AuthorRepository;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -28,7 +30,12 @@ class ArticleType extends AbstractType
                     "class" => "AppBundle\Entity\Author",
                     "choice_label" => "name",
                     "placeholder" => "Choisissez un auteur",
-                    "label" => "Auteur"
+                    "label" => "Auteur",
+                    //La clef query_builder admet une fonction anonyme
+                    //qui a comme argument une instance de Repository
+                    "query_builder" => function(AuthorRepository $er){
+                        return $er->getOnlyWomen();
+                    }
                 ])
             ->add('tags', EntityType::class,
                 [
