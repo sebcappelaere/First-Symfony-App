@@ -41,4 +41,15 @@ class DefaultController extends Controller
         $response = new Response("Hello $name. Vous avez $age ans. Vous êtes de nationalité $nationality[$countryCode]");
         return $response;
     }
+
+    /**
+     * @Route("/login-admin", name="login_admin")
+     */
+    public function adminLoginAction(){
+
+        return $this->render(
+            "AppBundle:Default:login-admin.html.twig",
+            []
+        );
+    }
 }
