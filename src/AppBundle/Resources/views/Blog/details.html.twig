@@ -9,12 +9,12 @@
     <h2>{{ article.title }}</h2>
     <h3>par {{ article.author.name }}</h3>
     <br>
-    <p>{{ article.text }}</p>
+    <p>{{ article.text | purify }}</p>      <!-- filtre pour le HTML -->
     <br>
 
     <ul class="list-inline">
         {% for tag in article.tags %}
-            <i class="btn btn-default">{{ tag.tagName }}</i>
+            <i class="btn btn-default" style="pointer-events: none">{{ tag.tagName }}</i>
         {% endfor %}
     </ul>
 
