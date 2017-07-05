@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Espace des auteurs{% endblock %}
+
+{% block body %}
+<h1>Bienvenue {{ name }} sur la page des auteurs</h1>
+
+    <h2>Liste de vos articles publiés</h2>
+    <ul>
+        {% for article in articleList %}
+            <li>{{ article.title }} créé le {{ article.createdAt | date('d/m/Y') }}
+                {% if article.updatedAt != null %} , modifié le {{ article.updatedAt | date('d/m/Y') }}{% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

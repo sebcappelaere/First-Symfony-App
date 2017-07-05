@@ -48,8 +48,20 @@ class DefaultController extends Controller
     public function adminLoginAction(){
 
         return $this->render(
-            "AppBundle:Default:login-admin.html.twig",
-            []
+            "AppBundle:Default:login.html.twig",
+            ["actionRoute" => "login_admin_check"]
+        );
+    }
+
+    /**
+     * @Route("/login-author", name="login_author")
+     * @return Response
+     */
+    public function authorLoginAction(){
+
+        return $this->render(
+            "AppBundle:Default:login.html.twig",
+            ["actionRoute" => "login_author_check"]
         );
     }
 }

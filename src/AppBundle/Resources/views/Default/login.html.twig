@@ -1,7 +1,7 @@
 {% extends "base-layout.html.twig" %}
 
 {% block body %}
-    <form method="post" action="{{ path('login_admin_check') }}">
+    <form method="post" action="{{ path(actionRoute) }}">
         <div class="form-group">
             <input type="text" name="_username" class="form-control" placeholder="Votre identifiant">
         </div>
