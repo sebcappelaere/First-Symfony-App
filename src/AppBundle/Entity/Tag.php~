@@ -1,0 +1,38 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Tags
+ *
+ * @ORM\Table(name="tags", uniqueConstraints={@ORM\UniqueConstraint(name="tag_name_UNIQUE", columns={"tag_name"})})
+ * @ORM\Entity(repositoryClass="TagsRepository")
+ */
+class Tag
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tag_name", type="string", length=45, nullable=false)
+     */
+    private $tagName;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Article", mappedBy="tags")
+     */
+    private $articles;
+}
+

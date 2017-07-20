@@ -142,7 +142,7 @@ class BlogController extends AbstractBlogController
         //Affichage de la vue avec le formulaire
         return $this->render(
             "AppBundle:Blog:new-article.html.twig",
-            ["artcileForm" => $form->createView()]
+            ["articleForm" => $form->createView()]
         );
 
 
